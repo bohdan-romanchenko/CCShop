@@ -111,7 +111,11 @@ public class MainClass {
                     else if(answer.equals("show"))
                         cart.showAllItemsInCart();
                     else{
-                        Item item = shopService.getItemByName(answer, shop);    //catch null
+                        Item item = shopService.getItemByName(answer, shop);
+                        if (item == null){
+                            System.out.println("      There is no item with name " + answer);
+                            break;
+                        }
                         cart.addItemToCart(item);
                     }
                 }
@@ -128,7 +132,7 @@ public class MainClass {
             if (answer.equals("q")){
                 break;
             } else{
-                Item item = shopService.getItemByName(answer, shop);    //catch null
+                Item item = shopService.getItemByName(answer, shop);
                 if (item == null){
                     System.out.println("      There is no item with name " + answer);
                     break;
