@@ -34,7 +34,7 @@ public class MainClass {
             System.out.print("Your answer : ");
 
             Scanner read = new Scanner(System.in);
-            answer = read.next();
+            answer = read.nextLine();
 
             if (answer.equals("1")){
                 chooseShop(shopService, read);
@@ -52,16 +52,17 @@ public class MainClass {
     private static void deleteShop(ShopService shopService, Scanner read){
         while(true){
             shopService.printNamesOfShops();
-            System.out.println("    Input name of shop to delete and q to quit: ");
-            answer = read.next();
+            System.out.print("    Input name of shop to delete and q to quit: ");
+            answer = read.nextLine();
             if (answer.equals("q"))
                 break;
             else {
                 Shop shop = shopService.getShopByName(answer);
-                if (shop == null)
+                if (shop == null){
                     System.out.println("    There is no shop with name " + answer);
-                else
-                    shopService.deleteShop(shop);
+                    break;
+                }
+                shopService.deleteShop(shop);
             }
         }
     }
@@ -69,13 +70,13 @@ public class MainClass {
     private static void createShop(ShopService shopService, Scanner read) {
         Shop shop = new Shop();
         System.out.print("Input name of shop : ");
-        shop.setNameShop(read.next());
+        shop.setNameShop(read.nextLine());
 
         System.out.print("Input shop owners name : ");
-        shop.setNameOwner(read.next());
+        shop.setNameOwner(read.nextLine());
 
         System.out.print("Input shop address : ");
-        shop.setAddress(read.next());
+        shop.setAddress(read.nextLine());
 
         Shop createdShop = shopService.createShop(shop);
         System.out.println("Shop " + createdShop.getNameShop() + " successfully created!");
@@ -85,7 +86,7 @@ public class MainClass {
         while (true){
             shopService.printNamesOfShops();
             System.out.print("    Input name of shop to choose or q to quit: ");
-            answer = read.next();
+            answer = read.nextLine();
             if (answer.equals("q"))
                 break;
             else{
@@ -96,10 +97,12 @@ public class MainClass {
                 }
                 while (true){
                     shopService.printNamesOfItems(shop);
-                    System.out.println("      Print name of item to buy or print create/delete to create/delete new item.");
-                    System.out.println("      Print buy to buy everything in cart. Print show to show all items in cart.");
+                    System.out.println("      Print name of item to buy or print " +
+                            "CREATE/DELETE to create/delete new item.");
+                    System.out.println("      Print BUY to buy everything in cart. " +
+                            "Print SHOW to show all items in cart.");
                     System.out.print("      q to quit : ");
-                    answer = read.next();
+                    answer = read.nextLine();
                     if (answer.equals("q"))
                         break;
                     else if (answer.equals("create"))
@@ -128,7 +131,7 @@ public class MainClass {
             ItemService itemService = (ItemService) context.getBean("itemService");
             shopService.printNamesOfItems(shop);
             System.out.print("      Print name of item which you want to delete and q to quit : ");
-            answer = read.next();
+            answer = read.nextLine();
             if (answer.equals("q")){
                 break;
             } else{
@@ -148,22 +151,23 @@ public class MainClass {
         ItemService itemService = (ItemService) context.getBean("itemService");
         Item item = new Item();
         System.out.print("      Input name of item: ");
-        answer = read.next();
+        answer = read.nextLine();
         item.setNameItem(answer);
 
         System.out.print("      Input amount of items: ");
-        answer = read.next();
+        answer = read.nextLine();
         item.setAmount(Integer.valueOf(answer));
 
         System.out.print("      Input items price: ");
-        answer = read.next();
+        answer = read.nextLine();
         item.setPrice(Double.valueOf(answer));
 
         item.setShop(currentShop);
 
         itemService.createItem(item);
         currentShop.getItems().add(item);
-        System.out.println("      Item " + item.getNameItem() + " in " + currentShop.getNameShop() + " shop successfully created!");
+        System.out.println("      Item " + item.getNameItem() + " in " + currentShop.getNameShop()
+                + " shop successfully created!");
 
         return item;
     }
