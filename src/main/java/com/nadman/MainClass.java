@@ -57,8 +57,11 @@ public class MainClass {
             if (answer.equals("q"))
                 break;
             else {
-                Shop shop = shopService.getShopByName(answer);     //catch null
-                shopService.deleteShop(shop);
+                Shop shop = shopService.getShopByName(answer);
+                if (shop == null)
+                    System.out.println("    There is no shop with name " + answer);
+                else
+                    shopService.deleteShop(shop);
             }
         }
     }
@@ -86,7 +89,11 @@ public class MainClass {
             if (answer.equals("q"))
                 break;
             else{
-                Shop shop = shopService.getShopByName(answer);     //catch null
+                Shop shop = shopService.getShopByName(answer);
+                if (shop == null){
+                    System.out.println("    There is no shop with name " + answer);
+                    break;
+                }
                 while (true){
                     shopService.printNamesOfItems(shop);
                     System.out.println("      Print name of item to buy or print create/delete to create/delete new item.");
@@ -95,15 +102,15 @@ public class MainClass {
                     answer = read.next();
                     if (answer.equals("q"))
                         break;
-                    else if (answer.equals("create")){
+                    else if (answer.equals("create"))
                         createItem(read, shop);
-                    } else if(answer.equals("delete")){
+                    else if(answer.equals("delete"))
                         deleteItem(read, shop, shopService);
-                    } else if(answer.equals("buy")){
+                    else if(answer.equals("buy"))
                         cart.buyEverythingInCart();
-                    } else if(answer.equals("show")){
+                    else if(answer.equals("show"))
                         cart.showAllItemsInCart();
-                    } else{
+                    else{
                         Item item = shopService.getItemByName(answer, shop);    //catch null
                         cart.addItemToCart(item);
                     }
@@ -122,6 +129,10 @@ public class MainClass {
                 break;
             } else{
                 Item item = shopService.getItemByName(answer, shop);    //catch null
+                if (item == null){
+                    System.out.println("      There is no item with name " + answer);
+                    break;
+                }
                 shop.getItems().remove(item);
                 itemService.deleteItem(item);
             }

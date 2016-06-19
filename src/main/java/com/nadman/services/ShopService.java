@@ -37,7 +37,6 @@ public class ShopService {
                 System.out.println("    - " + shop.getNameShop());
         } else {
             System.out.println("    There are no shops yet.");
-            System.out.print("    Press q to go to previous menu : ");
         }
     }
 
