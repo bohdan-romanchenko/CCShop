@@ -16,7 +16,7 @@
 
     <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.h2.Driver"/>
-        <property name="url" value="jdbc:h2:http://127.0.1.1/shop"/>
+        <property name="url" value="jdbc:h2:./database/shop"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
@@ -38,8 +38,8 @@
             <value>
                 hibernate.dialect=org.hibernate.dialect.H2Dialect
                 <!--hibernate.show_sql=true-->
-                hibernate.hbm2ddl.auto=create
-                hibernate.enable_lazy_load_no_trans=true
+                <!--hibernate.hbm2ddl.auto=create-->
+                <!--hibernate.enable_lazy_load_no_trans=true-->
             </value>
         </property>
     </bean>
